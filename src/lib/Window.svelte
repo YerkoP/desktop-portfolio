@@ -5,6 +5,8 @@
   let lastMouseX = $state(0);
   let lastMouseY = $state(0);
 
+  let { children, title = 'Window Title' } = $props();
+
   function ondrag(event) {
     event.preventDefault();
     // Handle drag events if needed
@@ -45,7 +47,7 @@
 
 <div 
   bind:this={win} 
-  class="window backdrop-blur-sm" 
+  class="window backdrop-blur-sm absolute w-2xl h-[320px] top-[10%] left-[30%] rounded-2xl border border-slate-500 bg-slate-500/50" 
   draggable="true" 
   ondragstart={ondragstart} 
   ondrag={ondrag} 
@@ -53,41 +55,20 @@
   role="dialog" 
   tabindex="0"
   >
-  <div class="window-header">
-    <div class="window-title">Window Title</div>
-    <div class="window-controls">
+  <div class="window-header flex justify-between items-center font-semibold py-1 px-2">
+    <div class="window-title text-slate-200">{title}</div>
+    <div class="window-controls flex gap-1 items-center">
       <button class="minimize-button bg-yellow-500 w-3 h-3 rounded-full" aria-label="Minimize"></button>
       <button class="maximize-button bg-green-500 w-3 h-3 rounded-full" aria-label="Maximize"></button>
       <button class="close-button bg-red-500 w-3 h-3 rounded-full" aria-label="Close"></button>
     </div>
   </div>
-  <div class="window-content">
-    <!-- Content goes here -->
+  <div class="window-content py-1 px-2 text-slate-200">
+    {@render children?.()}
   </div>
 </div>
 
 <style>
-  .window {
-    position: absolute;
-    width: 640px;
-    height: 320px;
-    top: 10%;
-    left: 30%;
-    border-radius: 16px;
-    border: solid 1px;
-  }
-  .window-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: .25rem .5rem;
-    font-weight: 600;
-  }
-  .window-controls {
-    display: flex;
-    gap: .25rem;
-    align-items: center;
-  }
   #drag-image {
     position: absolute;
     top: -9999px;
