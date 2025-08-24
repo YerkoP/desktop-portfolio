@@ -1,3 +1,11 @@
+<script>
+  import Task from "./Task.svelte";
+  import { getContext } from "svelte";
+
+  let tasks = getContext("tasks");
+  console.log(tasks);
+</script>
+
 <div
   class="taskbar-container flex items-center bg-violet-950 p-2 fixed bottom-0 left-0 right-0 w-full z-50
 "
@@ -31,12 +39,7 @@
             d="M200 0H0v200h200V0z"
           ></path><g filter="url(#filter0_f_748_4229)"
             ><ellipse cx="106" cy="22.5" fill="#fff" rx="88" ry="49.5"
-            ></ellipse><ellipse
-              cx="64.5"
-              cy="155"
-              fill="#fff"
-              rx="64.5"
-              ry="45"
+            ></ellipse><ellipse cx="64.5" cy="155" fill="#fff" rx="64.5" ry="45"
             ></ellipse><path fill="#fff" d="M218 126H100v120h118V126z"
             ></path></g
           ></g
@@ -96,5 +99,10 @@
         ></defs
       ></svg
     >
+
+    {#each Object.entries(tasks) as [taskId, task], index}
+      <Task title={task.title} {taskId}>
+      </Task>
+    {/each}
   </div>
 </div>
