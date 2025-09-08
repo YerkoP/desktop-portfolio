@@ -1,11 +1,19 @@
 <script>
+  import { getContext } from "svelte";
   let win;
   let offsetX = $state(0);
   let offsetY = $state(0);
   let lastMouseX = $state(0);
   let lastMouseY = $state(0);
+  let { children, title = 'Window Title', taskId } = $props();
 
-  let { children, title = 'Window Title' } = $props();
+  let top = $state(getContext('tasks')[taskId].top || '10%');
+  let left = $state(getContext('tasks')[taskId].left || '30%');
+
+
+  $effect(() => {
+    getContext('taskManager').move(taskId, left, top)
+  })
 
   function ondrag(event) {
     event.preventDefault();
@@ -38,8 +46,8 @@
       document.body.removeChild(dragImage);
     }
     // Reposicionar el div original
-    win.style.left = `${lastMouseX - offsetX}px`;
-    win.style.top = `${lastMouseY - offsetY}px`;
+    left = `${lastMouseX - offsetX}px`;
+    top = `${lastMouseY - offsetY}px`;
   }
 </script>
 
@@ -47,6 +55,8 @@
 
 <div 
   bind:this={win} 
+  style:top={top}
+  style:left={left}
   class="window backdrop-blur-sm absolute w-2xl h-[320px] top-[10%] left-[30%] rounded-2xl border border-slate-500 bg-slate-500/50" 
   draggable="true" 
   ondragstart={ondragstart} 

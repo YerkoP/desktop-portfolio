@@ -3,7 +3,6 @@
   import { getContext } from "svelte";
 
   let tasks = getContext("tasks");
-  console.log(tasks);
 </script>
 
 <div
