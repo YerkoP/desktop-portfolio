@@ -5,7 +5,7 @@
   let offsetY = $state(0);
   let lastMouseX = $state(0);
   let lastMouseY = $state(0);
-  let { children, title = 'Window Title', taskId } = $props();
+  let { children, title = 'Window Title', taskId, isFolder = false } = $props();
 
   let top = $state(getContext('tasks')[taskId].top || '10%');
   let left = $state(getContext('tasks')[taskId].left || '30%');
@@ -73,8 +73,15 @@
       <button class="close-button bg-red-500 w-3 h-3 rounded-full" aria-label="Close"></button>
     </div>
   </div>
-  <div class="window-content py-1 px-2 text-slate-200">
-    {@render children?.()}
+  <div class="window-content py-2 px-2 text-slate-200">
+    {#if isFolder}
+      <div class="bg-slate-600 p-4 rounded-xl w-full h-full">
+        {@render children?.()}
+      </div>
+    {:else}
+      {@render children?.()}
+    {/if}
+    
   </div>
 </div>
 
@@ -83,5 +90,8 @@
     position: absolute;
     top: -9999px;
     pointer-events: none;
+  }
+  .window-content {
+    height: calc(100% - 32px);
   }
 </style>

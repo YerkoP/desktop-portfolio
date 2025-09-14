@@ -7,12 +7,21 @@
 
   $effect(() => {
     // TODO: add tasks
-    console.log('Adding a sample task');
     tasks[window.crypto.randomUUID()] = {
       open: false,
       top: '10%',
       left: '30%',
       title: "My Custom Window",
+      isFolder: true,
+      children: [
+        {
+          title: '',
+          description: '',
+          repo: '',
+          package: '',
+          icon: ''
+        }
+      ],
       content:
         "<p>This is the content of the window.</p><p>You can add more elements here as needed.</p>",
     };
@@ -41,7 +50,6 @@
       $effect(() => {
         if (tasks[taskId]) {
           tasks[taskId].open = state;
-          console.log('Toggled', taskId, state);
         }
       });
     },
@@ -51,7 +59,6 @@
         if (tasks[taskId]) {
           tasks[taskId].left = `${x}`;
           tasks[taskId].top = `${y}`;
-          console.log('Moved', taskId, x, y);
         }
       });
     }
@@ -60,7 +67,7 @@
 
 {#each Object.entries(tasks) as [taskId, task] (taskId)}
   {#if task.open}
-    <Window title={task.title} {taskId}>
+    <Window title={task.title} {taskId} isFolder={task.isFolder}>
       {@html task.content}
     </Window>
   {/if}
