@@ -12,5 +12,5 @@
 - [ ] OS like features
   - [ ] block desktop
   - [ ] unblock desktop
-  - [ ] date and time display
+  - [x] date and time display
   - [ ] calendar

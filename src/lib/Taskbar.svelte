@@ -3,10 +3,17 @@
   import { getContext } from "svelte";
 
   let tasks = getContext("tasks");
+  let time = $state('')
+
+  setInterval(() => {
+    time = new Intl.DateTimeFormat('es-CL', {
+  hour: 'numeric', minute: 'numeric', hour12: false
+}).format(new Date()) 
+  }, 100)
 </script>
 
 <div
-  class="taskbar-container flex items-center bg-violet-950 p-2 fixed bottom-0 left-0 right-0 w-full z-50
+  class="taskbar-container flex justify-between items-center bg-violet-950 p-2 fixed bottom-0 left-0 right-0 w-full z-50
 "
 >
   <div class="taskbar-items flex gap-2">
@@ -104,4 +111,5 @@
       </Task>
     {/each}
   </div>
+  <span class="text-white">{time}</span>
 </div>
