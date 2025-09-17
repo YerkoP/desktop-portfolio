@@ -1,18 +1,18 @@
 <script>
-  import { getContext } from "svelte";
+  import { tasks } from './tasks.svelte.js'
   let win;
   let offsetX = $state(0);
   let offsetY = $state(0);
   let lastMouseX = $state(0);
   let lastMouseY = $state(0);
   let { children, title = 'Window Title', taskId, isFolder = false } = $props();
-
-  let top = $state(getContext('tasks')[taskId].top || '10%');
-  let left = $state(getContext('tasks')[taskId].left || '30%');
-
+  
+  let top = $state(tasks[taskId].top || '10%');
+  let left = $state(tasks[taskId].left || '30%');
 
   $effect(() => {
-    getContext('taskManager').move(taskId, left, top)
+    tasks[taskId].left = `${left}`;
+    tasks[taskId].top = `${top}`;
   })
 
   function ondrag(event) {
@@ -68,7 +68,7 @@
   <div class="window-header flex justify-between items-center font-semibold py-1 px-2">
     <div class="window-title text-slate-200">{title}</div>
     <div class="window-controls flex gap-1 items-center">
-      <button class="minimize-button bg-yellow-500 w-3 h-3 rounded-full" aria-label="Minimize"></button>
+      <button onclickcapture={() => tasks[taskId].open = false} class="minimize-button bg-yellow-500 w-3 h-3 rounded-full" aria-label="Minimize"></button>
       <button class="maximize-button bg-green-500 w-3 h-3 rounded-full" aria-label="Maximize"></button>
       <button class="close-button bg-red-500 w-3 h-3 rounded-full" aria-label="Close"></button>
     </div>

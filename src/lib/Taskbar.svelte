@@ -1,8 +1,7 @@
 <script>
   import Task from "./Task.svelte";
-  import { getContext } from "svelte";
+  import { tasks } from './tasks.svelte.js'
 
-  let tasks = getContext("tasks");
   let time = $state('')
 
   setInterval(() => {
