@@ -68,9 +68,9 @@
   <div class="window-header flex justify-between items-center font-semibold py-1 px-2">
     <div class="window-title text-slate-200">{title}</div>
     <div class="window-controls flex gap-1 items-center">
-      <button onclickcapture={() => tasks[taskId].open = false} class="minimize-button bg-yellow-500 w-3 h-3 rounded-full" aria-label="Minimize"></button>
-      <button class="maximize-button bg-green-500 w-3 h-3 rounded-full" aria-label="Maximize"></button>
-      <button class="close-button bg-red-500 w-3 h-3 rounded-full" aria-label="Close"></button>
+      <button onclick={() => tasks[taskId].open = false} class="minimize-button bg-yellow-500 w-3 h-3 rounded-full cursor-pointer" aria-label="Minimize"></button>
+      <button class="maximize-button bg-green-500 w-3 h-3 rounded-full cursor-pointer" aria-label="Maximize"></button>
+      <button onclick={() => delete tasks[taskId]} class="close-button bg-red-500 w-3 h-3 rounded-full cursor-pointer" aria-label="Close"></button>
     </div>
   </div>
   <div class="window-content py-2 px-2 text-slate-200">
